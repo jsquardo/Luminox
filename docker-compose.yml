@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: myapp/web:dev
     command: bash -c "bin/setup && bundle exec rails server -b 0.0.0.0"
     volumes:
       - .:/app
