@@ -17,4 +17,13 @@ export default defineConfig({
     tailwindcss(),
     RubyPlugin(),
   ],
+  server: {
+    host: `0.0.0.0`,
+    watch: {
+      usePolling: true
+    },
+    hmr: {
+      host: `localhost`
+    }
+  }
 })

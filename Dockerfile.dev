@@ -14,11 +14,12 @@ RUN apt-get update -qq && \
   git \
   curl \
   libpq-dev \
+  libyaml-dev \
+  pkg-config \
   nodejs \
-  npm \
-  # optionally yarn if you prefer
-  && npm install -g yarn \
-  && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+  npm && \
+  npm install -g yarn && \
+  rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 # Set env variables for development
 ENV RAILS_ENV=development \
@@ -27,14 +28,16 @@ ENV RAILS_ENV=development \
 
 # Copy Gemfile & install gems
 COPY Gemfile Gemfile.lock ./
-RUN gem install bundler && bundle install
+RUN bundle install --jobs 4 --retry 3
 
 # Copy package.json & install JS dependencies
-COPY package.json yarn.lock ./    # or package-lock.json if using npm
-RUN yarn install                    # or npm ci
+COPY package.json package-lock.json ./
+RUN npm ci
 
 # Copy the rest of the application code
 COPY . .
+
+RUN rm -f /app/tmp/pids/server.pid
 
 # Expose necessary ports for dev:
 # Rails default port 3000, Vite/React dev server e.g. 5173
