@@ -1,24 +1,15 @@
 #!/usr/bin/env sh
+set -e
 
 export PORT="${PORT:-3000}"
 
-if command -v overmind 1> /dev/null 2>&1
-then
-  overmind start -f Procfile.dev "$@"
-  exit $?
-fi
-
-if command -v hivemind 1> /dev/null 2>&1
-then
-  echo "Hivemind is installed. Running the application with Hivemind..."
-  exec hivemind Procfile.dev "$@"
-  exit $?
-fi
-
-if gem list --no-installed --exact --silent foreman; then
-  echo "Installing foreman..."
-  gem install foreman
-fi
-
+# In Docker the project directory is a bind-mount, so these can persist between runs
+rm -f .overmind.sock
 rm -f tmp/pids/server.pid
-bundle exec foreman start -f Procfile.dev "$@"
+
+if command -v overmind >/dev/null 2>&1; then
+  exec overmind start -f Procfile.dev "$@"
+fi
+
+echo "overmind is not installed. Install it (brew install overmind) or ensure the dev container image includes it."
+exit 1

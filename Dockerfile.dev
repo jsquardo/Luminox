@@ -10,16 +10,30 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update -qq && \
   apt-get install --no-install-recommends -y \
-  build-essential \
-  git \
-  curl \
-  libpq-dev \
-  libyaml-dev \
-  pkg-config \
-  nodejs \
-  npm && \
+    build-essential \
+    git \
+    curl \
+    ca-certificates \
+    tmux \
+    libpq-dev \
+    libyaml-dev \
+    pkg-config \
+    nodejs \
+    npm && \
   npm install -g yarn && \
   rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+
+ARG OVERMIND_VERSION=2.5.1
+RUN set -eux; \
+  arch="$(dpkg --print-architecture)"; \
+  case "$arch" in \
+    amd64) om_arch="linux-amd64" ;; \
+    arm64) om_arch="linux-arm64" ;; \
+    *) echo "Unsupported arch: $arch" && exit 1 ;; \
+  esac; \
+  curl -L "https://github.com/DarthSim/overmind/releases/download/v${OVERMIND_VERSION}/overmind-v${OVERMIND_VERSION}-${om_arch}.gz" \
+    | gunzip -c > /usr/local/bin/overmind; \
+  chmod +x /usr/local/bin/overmind
 
 # Set env variables for development
 ENV RAILS_ENV=development \
@@ -40,8 +54,8 @@ COPY . .
 RUN rm -f /app/tmp/pids/server.pid
 
 # Expose necessary ports for dev:
-# Rails default port 3000, Vite/React dev server e.g. 5173
-EXPOSE 3000 5173
+# Rails default port 3000, Vite/React dev server e.g. 3036
+EXPOSE 3000 3036
 
 # Mount volumes if set via docker-compose (see compose file)
 

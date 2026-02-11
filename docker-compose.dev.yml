@@ -22,7 +22,7 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     image: myapp/web:dev
-    command: bash -lc "bin/setup && bin/dev"
+    command: bash -lc "rm -f tmp/pids/server.pid .overmind.sock && bin/setup && bin/dev"
     volumes:
       - .:/app
       - bundle_cache:/usr/local/bundle
@@ -37,6 +37,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    tty: true
+    stdin_open: true
 
 volumes:
   pgdata:

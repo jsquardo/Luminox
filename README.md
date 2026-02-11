@@ -27,6 +27,35 @@ See also:
    ```
 3. Open http://localhost:3000
 
+## Docker (Development)
+
+Use Docker Compose for a local dev environment with Rails, Vite, and Postgres.
+
+1. Build and start the containers:
+  ```bash
+  docker compose -f docker-compose.dev.yml up --build
+  ```
+2. Open http://localhost:3000 (the Vite dev server on port 3036 serves assets and HMR behind the scenes — you don't need to open it directly).
+
+Notes:
+- The database runs in a `postgres:15` container and persists in a named volume.
+- If you need to run Rails tasks, use `docker compose -f docker-compose.dev.yml exec web <command>`.
+  Example:
+  ```bash
+  docker compose -f docker-compose.dev.yml exec web bin/rails db:migrate
+  ```
+
+## Docker (Production-like)
+
+The production Dockerfile builds a single image and runs the app on port 80.
+
+```bash
+docker build -t react_starter_kit .
+docker run -d -p 80:80 \
+  -e RAILS_MASTER_KEY=<value from config/master.key> \
+  --name react_starter_kit react_starter_kit
+```
+
 ## Enabling SSR
 
 This starter kit comes with optional SSR support. To enable it, follow these steps:
