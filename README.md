@@ -35,6 +35,7 @@ Use Docker Compose for a local dev environment with Rails, Vite, and Postgres.
   ```bash
   docker compose -f docker-compose.dev.yml up --build
   ```
+
 2. Open http://localhost:3000 (the Vite dev server on port 3036 serves assets and HMR behind the scenes — you don't need to open it directly).
 
 Notes:
@@ -43,6 +44,12 @@ Notes:
   Example:
   ```bash
   docker compose -f docker-compose.dev.yml exec web bin/rails db:migrate
+  ```
+  or since the dc script has been added to the bin folder you can run
+  ```bash
+  bin/dc bin/rails g model
+  bin/dc bin/rails db:migrate
+  bin/dc bundle add ethereum.rb pg_trgm
   ```
 
 ## Docker (Production-like)

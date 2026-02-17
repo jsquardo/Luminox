@@ -22,6 +22,7 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     image: myapp/web:dev
+    user: "${UID}:${GID}"
     command: bash -lc "rm -f tmp/pids/server.pid .overmind.sock && bin/setup && bin/dev"
     volumes:
       - .:/app
