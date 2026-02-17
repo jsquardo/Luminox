@@ -26,6 +26,7 @@ services:
     command: bash -lc "rm -f tmp/pids/server.pid .overmind.sock && bin/setup && bin/dev"
     volumes:
       - .:/app
+      - node_modules:/app/node_modules
       - bundle_cache:/usr/local/bundle
     ports:
       - "3000:3000" # Rails server
@@ -33,6 +34,8 @@ services:
     environment:
       RAILS_ENV: development
       DATABASE_URL: postgres://postgres:password@db:5432/myapp_development
+      HOME: /tmp
+      NPM_CONFIG_CACHE: /tmp/.npm
       # Add others if needed:
       # NODE_ENV: development
     depends_on:
@@ -44,3 +47,4 @@ services:
 volumes:
   pgdata:
   bundle_cache:
+  node_modules:
