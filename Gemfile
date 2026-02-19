@@ -12,7 +12,8 @@ gem "propshaft"
 gem "puma", ">= 5.0"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
-
+# Used to fetch data from an API and perform other HTTP requests
+gem "httparty", "~> 0.21"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"

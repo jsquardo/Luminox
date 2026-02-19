@@ -10,10 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_17_220105) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_19_183710) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
+
+  create_table "address_clusters", force: :cascade do |t|
+    t.integer "address_count"
+    t.string "cluster_name"
+    t.float "cluster_score"
+    t.string "cluster_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "address"
+    t.bigint "address_cluster_id"
+    t.datetime "created_at", null: false
+    t.datetime "first_seen"
+    t.boolean "is_contract", default: false
+    t.string "label"
+    t.datetime "last_seen"
+    t.float "risk_score", default: 0.0
+    t.decimal "total_received", precision: 30, scale: 8, default: "0.0"
+    t.decimal "total_sent", precision: 30, scale: 8, default: "0.0"
+    t.integer "transaction_count", default: 0
+    t.datetime "updated_at", null: false
+    t.index ["address"], name: "index_addresses_on_address", unique: true
+    t.index ["address_cluster_id"], name: "index_addresses_on_address_cluster_id"
+    t.index ["last_seen"], name: "index_addresses_on_last_seen"
+    t.index ["risk_score"], name: "index_addresses_on_risk_score"
+  end
 
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -34,5 +62,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_17_220105) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "addresses", "address_clusters"
   add_foreign_key "sessions", "users"
 end
