@@ -49,8 +49,8 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install --jobs 4 --retry 3
 
 # Copy package.json & install JS dependencies
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY package.json package*.json ./
+RUN npm install
 
 # Copy the rest of the application code
 COPY . .

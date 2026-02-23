@@ -85,4 +85,8 @@ Rails.application.configure do
   # Automatically update js-routes file
   # when routes.rb is changed
   config.middleware.use(JsRoutes::Middleware)
+
+  # Use Solid Queue in Development.
+  config.active_job.queue_adapter = :solid_queue
+  config.solid_queue.logger = ActiveSupport::Logger.new(STDOUT)
 end

@@ -20,13 +20,13 @@ class Transaction < ApplicationRecord
 
   validates :tx_hash, presence: true, uniqueness: true
   # Ethereum transaction hashes are "0x" followed by 64 hex characters
-  validates :tx_hash, format: { with: /\A0x[a-fA-F0-9]{64}\z/, message: "must be a valid Ethereum transaction hash" }
+  validates :tx_hash, format: {with: /\A0x[a-fA-F0-9]{64}\z/, message: "must be a valid Ethereum transaction hash"}
 
   validates :from_address, :to_address, presence: true
-  validates :from_address, :to_address, format: { with: /\A0x[a-fA-F0-9]{40}\z/, message: "must be a valid Ethereum address" }
+  validates :from_address, :to_address, format: {with: /\A0x[a-fA-F0-9]{40}\z/, message: "must be a valid Ethereum address"}
 
-  validates :value, :gas_price, numericality: { greater_than_or_equal_to: 0 }
-  validates :block_number, numericality: { greater_than_or_equal_to: 0 }
+  validates :value, :gas_price, numericality: {greater_than_or_equal_to: 0}
+  validates :block_number, numericality: {greater_than_or_equal_to: 0}
   validates :timestamp, presence: true
 
   # ============================================================================
@@ -40,10 +40,10 @@ class Transaction < ApplicationRecord
   scope :not_alerted, -> { where(is_alerted: false) }
 
   # Find transactions from a specific address
-  scope :from, ->(address) { where(from_address: address) }
+  scope :from_addr, ->(address) { where(from_address: address) }
 
   # Find transactions to a specific address
-  scope :to, ->(address) { where(to_address: address) }
+  scope :to_addr, ->(address) { where(to_address: address) }
 
   # Find transactions above a certain value (in wei)
   scope :high_value, ->(min_value) { where("value >= ?", min_value) }
