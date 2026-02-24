@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_23_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_24_152021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -204,6 +204,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_23_000000) do
     t.index ["expires_at"], name: "index_solid_queue_semaphores_on_expires_at"
     t.index ["key", "value"], name: "index_solid_queue_semaphores_on_key_and_value"
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
+  end
+
+  create_table "token_transfers", force: :cascade do |t|
+    t.decimal "amount", precision: 78
+    t.string "anomaly_type"
+    t.datetime "created_at", null: false
+    t.string "from_address", null: false
+    t.boolean "is_suspicious", default: false, null: false
+    t.datetime "timestamp", null: false
+    t.string "to_address", null: false
+    t.string "token_address", null: false
+    t.string "token_symbol"
+    t.string "tx_hash", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_address"], name: "index_token_transfers_on_from_address"
+    t.index ["is_suspicious"], name: "index_token_transfers_on_is_suspicious"
+    t.index ["timestamp"], name: "index_token_transfers_on_timestamp"
+    t.index ["to_address"], name: "index_token_transfers_on_to_address"
+    t.index ["token_address"], name: "index_token_transfers_on_token_address"
+    t.index ["tx_hash"], name: "index_token_transfers_on_tx_hash"
   end
 
   create_table "transactions", force: :cascade do |t|
