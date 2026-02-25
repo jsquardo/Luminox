@@ -53,6 +53,12 @@ class TransactionProcessor
       update_address_metrics(tx_data)
     end
 
+    # Trigger risk scoring for the addresses involved
+    scorer = RiskScoringService.new
+    addr_from = Address.find_by(address: tx_data[:from_address])
+    addr_to = Address.find_by(address: tx_data[:to_address])
+    scorer.score_address(addr_from) if addr_from
+    scorer.score_address(addr_to) if addr_to
     @processed_count += 1
   rescue StandardError => e
     @error_count += 1
