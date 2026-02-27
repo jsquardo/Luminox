@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Dockerfile.dev — development version for Rails + Inertia + React
 
-ARG RUBY_VERSION=3.4.5
+ARG RUBY_VERSION=3.4.7
 FROM ruby:${RUBY_VERSION}-slim AS base
 
 # Set working directory
@@ -23,7 +23,8 @@ RUN apt-get update -qq && \
     autoconf \
     automake \
     libtool \
-    libsecp256k1-dev && \
+    libsecp256k1-dev \
+    postgresql-client && \
   npm install -g yarn && \
   rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 

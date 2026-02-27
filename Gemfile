@@ -5,7 +5,7 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.1"
 # Postgres
-gem 'pg', '>= 0.18', '< 2.0'
+gem "pg", ">= 0.18", "< 2.0"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -50,7 +50,7 @@ gem "js-routes"
 
 gem "eth", "~> 0.5"
 
-gem "dotenv-rails", require: 'dotenv/load'
+gem "dotenv-rails", require: "dotenv/load"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -70,15 +70,20 @@ group :development, :test do
 
   # Fixtures replacement with a straightforward definition syntax
   gem "factory_bot_rails"
+
+  gem "solargraph"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  gem 'foreman', '~> 0.90.0'
+  gem "foreman", "~> 0.90.0"
 
   # Use letter_opener to preview emails in the browser in development [https://github.com/ryanb/letter_opener]
   gem "letter_opener"
+
+  gem "ruby-lsp-rails", "~> 0.4.8"
+  gem "rubocop", "~> 1.85"
 end
 
 group :test do

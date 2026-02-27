@@ -1,0 +1,85 @@
+{
+  "name": "Luminox Dev",
+  "dockerComposeFile": [
+    "../docker-compose.dev.yml"
+  ],
+  "service": "web",
+  "workspaceFolder": "/app",
+  "overrideCommand": true,
+  "forwardPorts": [
+    3000,
+    3036,
+    5432
+  ],
+  "portsAttributes": {
+    "3000": {
+      "label": "Rails Server",
+      "onAutoForward": "notify"
+    },
+    "3036": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "notify"
+    },
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
+    }
+  },
+  "postCreateCommand": "until pg_isready -h db -U postgres; do echo 'Waiting for db...'; sleep 2; done && bin/setup",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // Ruby LSP handles rubocop, formatting, and solargraph-like features
+        "Shopify.ruby-lsp",
+        // JS/TS
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        // General
+        "eamodio.gitlens",
+        "ms-azuretools.vscode-docker",
+        "editorconfig.editorconfig"
+      ],
+      "settings": {
+        // Ruby LSP — use bundler inside container, no version manager
+        "rubyLsp.rubyVersionManager": {
+          "identifier": "none"
+        },
+        "rubyLsp.bundleGemfile": "/app/Gemfile",
+        "rubyLsp.formatter": "rubocop",
+        // Disable the old rubocop extension to prevent host path lookups
+        "ruby.useBundler": true,
+        "rubocop.executePath": "/usr/local/bundle/bin/",
+        "[ruby]": {
+          "editor.defaultFormatter": "Shopify.ruby-lsp",
+          "editor.formatOnSave": true,
+          "editor.tabSize": 2
+        },
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true
+        },
+        "[typescriptreact]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true
+        },
+        "tailwindCSS.includeLanguages": {
+          "ruby": "html",
+          "eruby": "html"
+        },
+        "tailwindCSS.experimental.classRegex": [
+          [
+            "class:\\s*[\"']([^\"']*)[\"']",
+            "[\"']([^\"']*)[\"']"
+          ]
+        ],
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "remoteUser": "root"
+}
