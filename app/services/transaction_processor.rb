@@ -6,9 +6,9 @@ class TransactionProcessor
   # It is the central hub of the data pipeline:
   #
   #   BlockchainService → TransactionProcessor → Database
-  #                                            → RiskScoringService (soon)
+  #                                            → RiskScoringService
   #                                            → PatternDetectionService (soon)
-  #                                            → AlertService (soon)
+  #                                            → AlertService
   # ============================================================================
 
   def initialize
@@ -33,7 +33,7 @@ class TransactionProcessor
     {processed: @processed_count, skipped: @skipped_count, errors: @error_count}
   end
 
-  # process a single raw transaction
+  # Process a single raw transaction
   def process_single(tx_data)
     return if tx_data.nil?
     return if tx_data[:tx_hash].nil?
@@ -53,12 +53,18 @@ class TransactionProcessor
       update_address_metrics(tx_data)
     end
 
-    # Trigger risk scoring for the addresses involved
+    # Score the transaction and addresses (scoring must happen before alerting)
     scorer = RiskScoringService.new
+    tx = Transaction.find_by(tx_hash: tx_data[:tx_hash])
+    scorer.score_transaction(tx) if tx
     addr_from = Address.find_by(address: tx_data[:from_address])
     addr_to = Address.find_by(address: tx_data[:to_address])
     scorer.score_address(addr_from) if addr_from
     scorer.score_address(addr_to) if addr_to
+
+    # Now check for alerts after scoring is complete
+    AlertService.new.check_transaction(tx) if tx
+
     @processed_count += 1
   rescue StandardError => e
     @error_count += 1
