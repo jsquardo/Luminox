@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  if Rails.env.development?
+    mount RailsPerformance::Engine, at: "rails/performance"
+    mount RailsPerformance::Engine, at: "rails/performance"
+    mount MissionControl::Jobs::Engine, at: "/jobs"
+  end
+
   get  "sign_in", to: "sessions#new", as: :sign_in
   post "sign_in", to: "sessions#create"
   get  "sign_up", to: "users#new", as: :sign_up
@@ -15,6 +21,17 @@ Rails.application.routes.draw do
   end
 
   get :dashboard, to: "dashboard#index"
+
+  resources :transactions, only: [:index, :show]
+  resources :addresses, only: [:index, :show]
+  resources :alerts, only: [:index] do
+    member do
+      patch :mark_read
+    end
+    collection do
+      patch :mark_all_read
+    end
+  end
 
   namespace :settings do
     resource :profile, only: [:show, :update]

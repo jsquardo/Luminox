@@ -17,6 +17,16 @@ services:
       timeout: 5s
       retries: 5
 
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   web:
     build:
       context: .
@@ -28,18 +38,19 @@ services:
       - .:/app
       - bundle_cache:/usr/local/bundle
     ports:
-      - "3000:3000" # Rails server
-      - "3036:3036" # Vite/React dev server (adjust if your port differs)
+      - "3000:3000"
+      - "3036:3036"
     environment:
       RAILS_ENV: development
       DATABASE_URL: postgres://postgres:password@db:5432/myapp_development
+      REDIS_URL: redis://redis:6379/0
       HOME: /tmp
       NPM_CONFIG_CACHE: /tmp/.npm
-      ALCHEMY_API_KEY: ${ALCHEMY_API_KEY} # Add your Alchemy API key to .env file
-      # Add others if needed:
-      # NODE_ENV: development
+      ALCHEMY_API_KEY: your_key_here
     depends_on:
       db:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     tty: true
     stdin_open: true
@@ -54,10 +65,13 @@ services:
     environment:
       RAILS_ENV: development
       DATABASE_URL: postgres://postgres:password@db:5432/myapp_development
+      REDIS_URL: redis://redis:6379/0
       HOME: /tmp
-      ALCHEMY_API_KEY: ${ALCHEMY_API_KEY} # Add your Alchemy API key to .env file
+      ALCHEMY_API_KEY: your_key_here
     depends_on:
       db:
+        condition: service_healthy
+      redis:
         condition: service_healthy
 
 volumes:

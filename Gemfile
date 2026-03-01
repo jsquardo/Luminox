@@ -84,6 +84,9 @@ group :development do
 
   gem "ruby-lsp-rails", "~> 0.4.8"
   gem "rubocop", "~> 1.85"
+  gem "rails_performance"
+  gem "pry"
+  gem "mission_control-jobs"
 end
 
 group :test do
