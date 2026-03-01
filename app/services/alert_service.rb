@@ -21,6 +21,16 @@ class AlertService
   # PUBLIC METHODS
   # ============================================================================
 
+  # Check and alert on a single transaction if it meets threshold
+  def check_transaction(transaction)
+    return if transaction.nil?
+    return if transaction.anomaly_score < ALERT_SCORE_THRESHOLD
+    return if transaction.is_alerted?
+
+    create_transaction_alert(transaction)
+    transaction.update!(is_alerted: true)
+  end
+
   # Generate alerts for all unalerted high-scoring transactions
   def alert_on_transactions
     flagged = Transaction.where("anomaly_score >= ?", ALERT_SCORE_THRESHOLD)

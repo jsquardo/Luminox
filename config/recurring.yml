@@ -14,6 +14,14 @@ default: &default
     class: FetchTransactionsJob
     schedule: "*/30 * * * * *"
     queue: default
+  analyze_transactions:
+    class: AnalyzeTransactionsJob
+    schedule: "*/2 * * * *"
+    queue: default
+  update_address_metrics:
+    class: UpdateAddressMetricsJob
+    schedule: "*/5 * * * *"
+    queue: default
 
 development:
   <<: *default
