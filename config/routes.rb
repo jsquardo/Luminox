@@ -3,7 +3,6 @@
 Rails.application.routes.draw do
   if Rails.env.development?
     mount RailsPerformance::Engine, at: "rails/performance"
-    mount RailsPerformance::Engine, at: "rails/performance"
     mount MissionControl::Jobs::Engine, at: "/jobs"
   end
 

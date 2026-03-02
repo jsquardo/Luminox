@@ -1,82 +1,56 @@
 @import "tailwindcss";
-
 @import "tw-animate-css";
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap");
+
 @plugin "@tailwindcss/typography";
 @plugin "@tailwindcss/forms";
 
 @custom-variant dark (&:is(.dark *));
 
+/* ─── Luminox Design Tokens ───────────────────────────────────── */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --background: oklch(0.13 0.02 250);
+  --foreground: oklch(0.93 0.01 250);
+  --card: oklch(0.16 0.02 250);
+  --card-foreground: oklch(0.93 0.01 250);
+  --popover: oklch(0.16 0.02 250);
+  --popover-foreground: oklch(0.93 0.01 250);
+  --primary: oklch(0.62 0.22 28);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.19 0.02 250);
+  --secondary-foreground: oklch(0.85 0.01 250);
+  --muted: oklch(0.19 0.02 250);
+  --muted-foreground: oklch(0.55 0.02 250);
+  --accent: oklch(0.65 0.14 195);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.58 0.24 28);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.24 0.025 250);
+  --input: oklch(0.24 0.025 250);
+  --ring: oklch(0.62 0.22 28);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.54 0.22 29.15);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: oklch(0.11 0.02 250);
+  --sidebar-foreground: oklch(0.93 0.01 250);
+  --sidebar-primary: oklch(0.62 0.22 28);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.16 0.025 250);
+  --sidebar-accent-foreground: oklch(0.93 0.01 250);
+  --sidebar-border: oklch(0.22 0.025 250);
+  --sidebar-ring: oklch(0.62 0.22 28);
+  --chart-1: oklch(0.62 0.22 28);
+  --chart-2: oklch(0.65 0.14 195);
+  --chart-3: oklch(0.72 0.15 145);
+  --chart-4: oklch(0.75 0.12 60);
+  --chart-5: oklch(0.68 0.18 280);
+  --lx-glow-red: 0 0 24px oklch(0.62 0.22 28 / 0.35);
+  --lx-glow-teal: 0 0 24px oklch(0.65 0.14 195 / 0.35);
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.54 0.22 29.15);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+:root {
+  color-scheme: dark;
 }
 
+/* ─── Theme inline mapping ─────────────────────────────────────── */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -102,10 +76,6 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -114,33 +84,217 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
+}
 
-  @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
+@keyframes accordion-down {
+  from {
+    height: 0;
   }
 
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0;
-    }
+  to {
+    height: var(--radix-accordion-content-height);
   }
 }
 
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+
+  to {
+    height: 0;
+  }
+}
+
+/* ─── Base ─────────────────────────────────────────────────────── */
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: "Satoshi", sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Clash Display", sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ─── Luminox component classes ─────────────────────────────────
+   All values are written out directly — no @apply of other custom
+   classes, which causes Tailwind v4 "unknown utility" errors.
+──────────────────────────────────────────────────────────────── */
+@layer components {
+
+  .font-display {
+    font-family: "Clash Display", sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  .font-body {
+    font-family: "Satoshi", sans-serif;
+  }
+
+  .lx-card {
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    background-color: var(--card);
+  }
+
+  .lx-card-glow-red {
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    box-shadow: var(--lx-glow-red);
+  }
+
+  .lx-card-glow-teal {
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    box-shadow: var(--lx-glow-teal);
+  }
+
+  .lx-gradient-text {
+    background: linear-gradient(135deg, oklch(0.80 0.22 28), oklch(0.55 0.22 28));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .lx-teal-text {
+    background: linear-gradient(135deg, oklch(0.78 0.14 195), oklch(0.55 0.14 195));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .lx-dot {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+  }
+
+  .lx-dot-active {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+    background-color: oklch(0.79 0.19 160);
+    box-shadow: 0 0 8px oklch(0.79 0.19 160);
+    animation: lx-pulse 2s ease-in-out infinite;
+  }
+
+  .lx-dot-warning {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+    background-color: oklch(0.78 0.14 60);
+    box-shadow: 0 0 8px oklch(0.78 0.14 60);
+  }
+
+  .lx-dot-critical {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+    background-color: oklch(0.62 0.22 28);
+    box-shadow: 0 0 8px oklch(0.62 0.22 28);
+    animation: lx-pulse 1s ease-in-out infinite;
+  }
+
+  .lx-grid-bg {
+    background-image:
+      linear-gradient(oklch(0.93 0.01 250 / 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.93 0.01 250 / 0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .lx-shimmer {
+    background: linear-gradient(90deg,
+        oklch(0.16 0.02 250) 25%,
+        oklch(0.20 0.02 250) 50%,
+        oklch(0.16 0.02 250) 75%);
+    background-size: 200% 100%;
+    animation: lx-shimmer 1.5s infinite;
+  }
+
+  .lx-fade-in {
+    animation: lx-fadein 0.4s ease-out both;
+  }
+
+  .lx-delay-1 {
+    animation-delay: 0.05s;
+  }
+
+  .lx-delay-2 {
+    animation-delay: 0.10s;
+  }
+
+  .lx-delay-3 {
+    animation-delay: 0.15s;
+  }
+
+  .lx-delay-4 {
+    animation-delay: 0.20s;
+  }
+
+  .lx-delay-5 {
+    animation-delay: 0.25s;
+  }
+}
+
+/* ─── Keyframes ─────────────────────────────────────────────────── */
+@keyframes lx-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes lx-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes lx-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
