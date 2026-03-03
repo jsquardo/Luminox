@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class InertiaController < ApplicationController
+  include ActionView::Helpers::DateHelper
+
   inertia_config default_render: true
   inertia_share flash: -> { flash.to_hash },
       auth: {
