@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     inertia :appearance
   end
 
-  root to: redirect("/sign_in")
+  root to: redirect("/dashboard")
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

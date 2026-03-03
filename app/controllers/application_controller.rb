@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate
-    redirect_to sign_in_path unless perform_authentication
+    redirect_to "/sign_in" unless perform_authentication
   end
 
   def require_no_authentication
